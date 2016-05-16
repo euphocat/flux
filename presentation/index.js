@@ -35,11 +35,13 @@ import Interactive from "../assets/interactive";
 require("normalize.css");
 require("spectacle/lib/themes/default/index.css");
 
-
 const images = {
-  city: require("../assets/city.jpg"),
-  kat: require("../assets/kat.png"),
-  logo: require("../assets/formidable-logo.svg"),
+  flux: require("../assets/flux.png"),
+  flux_detail: require("../assets/flux_detail.png"),
+  redux: require("../assets/redux.png"),
+  MVVM: require("../assets/MVVM.png"),
+  mvc: require("../assets/mvc-scale.png"),
+  fountain: require("../assets/fountain.gif"),
   markdown: require("../assets/markdown.png")
 };
 
@@ -50,121 +52,147 @@ const theme = createTheme({
 });
 
 export default class Presentation extends React.Component {
-  render() {
+  render () {
     return (
       <Spectacle theme={theme}>
         <Deck transition={["zoom", "slide"]} transitionDuration={500}>
-          <Slide transition={["zoom"]} bgColor="primary">
-            <Heading size={1} fit caps lineHeight={1} textColor="black">
-              Spectacle
+
+          <Slide transition={["zoom"]} bgColor="primary" bgColor="#5454C7">
+            <Heading size={1} fit caps lineHeight={1}>
+              Flux Architecture
             </Heading>
-            <Heading size={1} fit caps>
-              A ReactJS Presentation Library
-            </Heading>
-            <Heading size={1} fit caps textColor="black">
-              Where You Can Write Your Decks In JSX
-            </Heading>
-            <Link href="https://github.com/FormidableLabs/spectacle">
-              <Text bold caps textColor="tertiary">View on Github</Text>
-            </Link>
-            <Text textSize="1.5em" margin="20px 0px 0px" bold>Hit Your Right Arrow To Begin!</Text>
+            <small>(&amp; ReactJS)</small>
           </Slide>
-          <Slide transition={["slide"]} bgColor="black" notes="You can even put notes on your slide. How awesome is that?">
-            <Image src={images.kat.replace("/", "")} margin="0px auto 40px" height="293px"/>
-            <Heading size={2} caps fit textColor="primary" textFont="primary">
-              Wait what?
+
+          <Slide>
+            <Heading size={1} caps lineHeight={1}>
+              Server side MVC
             </Heading>
-          </Slide>
-          <Slide transition={["zoom", "fade"]} bgColor="primary" notes="<ul><li>talk about that</li><li>and that</li></ul>">
             <CodePane
+              textSize="25px"
               lang="jsx"
-              source={require("raw!../assets/deck.example")}
+              source={require("raw!../assets/mvc.example")}
               margin="20px auto"
             />
           </Slide>
-          <Slide transition={["slide"]} bgImage={images.city.replace("/", "")} bgDarken={0.75}>
+
+          <Slide transition={["slide"]} bgColor="white">
+            <Heading size={2} caps fit textFont="primary" textColor="primary">
+              Frontend MVCs
+            </Heading>
+            <Heading size={1} caps textColor="secondary">and MVVM</Heading>
             <Appear fid="1">
-              <Heading size={1} caps fit textColor="primary">
-                Full Width
-              </Heading>
+              <Image src={images.mvc.replace("/", "")} margin="50px 100px 0 0" height="293px"/>
             </Appear>
             <Appear fid="2">
-              <Heading size={1} caps fit textColor="tertiary">
-                Adjustable Darkness
-              </Heading>
-            </Appear>
-            <Appear fid="3">
-              <Heading size={1} caps fit textColor="primary">
-                Background Imagery
-              </Heading>
+              <Image src={images.MVVM.replace("/", "")} margin="50px auto 0" height="293px"/>
             </Appear>
           </Slide>
-          <Slide transition={["zoom", "fade"]} bgColor="primary">
-            <Heading caps fit>Flexible Layouts</Heading>
-            <Layout>
-              <Fill>
-                <Heading size={4} caps textColor="secondary" bgColor="white" margin={10}>
-                  Left
-                </Heading>
-              </Fill>
-              <Fill>
-                <Heading size={4} caps textColor="secondary" bgColor="white" margin={10}>
-                  Right
-                </Heading>
-              </Fill>
-            </Layout>
-          </Slide>
-          <Slide transition={["slide"]} bgColor="black">
-            <BlockQuote>
-              <Quote>Wonderfully formatted quotes</Quote>
-              <Cite>Ken Wheeler</Cite>
-            </BlockQuote>
-          </Slide>
-          <Slide transition={["spin", "zoom"]} bgColor="tertiary">
-            <Heading caps fit size={1} textColor="primary">
-              Inline Markdown
-            </Heading>
-            <Markdown>
-              {`
-![Markdown Logo](${images.markdown.replace("/", "")})
 
-You can write inline images, [Markdown Links](http://commonmark.org), paragraph text and most other markdown syntax
-* Lists too!
-* With ~~strikethrough~~ and _italic_
-* And lets not forget **bold**
-              `}
-            </Markdown>
-          </Slide>
-          <Slide transition={["slide", "spin"]} bgColor="primary">
-            <Heading caps fit size={1} textColor="tertiary">
-              Smooth
-            </Heading>
-            <Heading caps fit size={1} textColor="secondary">
-              Combinable Transitions
-            </Heading>
-          </Slide>
           <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
-            <List>
-              <Appear><ListItem>Inline style based theme system</ListItem></Appear>
-              <Appear><ListItem>Autofit text</ListItem></Appear>
-              <Appear><ListItem>Flexbox layout system</ListItem></Appear>
-              <Appear><ListItem>React-Router navigation</ListItem></Appear>
-              <Appear><ListItem>PDF export</ListItem></Appear>
-              <Appear><ListItem>And...</ListItem></Appear>
+            <Heading size={1} caps fit textColor="primary">MV* changes vs traditional MVC</Heading>
+            <List textColor="tertiary">
+              <Appear><ListItem>State also inside views
+                <Text textColor="primary">=> no single source of truth</Text></ListItem></Appear>
+              <Appear><ListItem>Multiple views</ListItem></Appear>
+              <Appear><ListItem>We bypass the view &lt;-&gt; controller &lt;-&gt; model flow</ListItem></Appear>
+              <Appear><ListItem>The router is no longer the only entry point for state change
+              </ListItem></Appear>
+              <Appear><ListItem>Multiple models
+                <Text textColor="primary">=> hard to picture the state of our app</Text>
+                <Text textColor="primary">=> scaling issues</Text></ListItem></Appear>
             </List>
           </Slide>
-          <Slide transition={["slide"]} bgColor="primary">
-            <Heading size={1} caps fit textColor="tertiary">
-              Your presentations are interactive
+
+          <Slide transition={["zoom", "fade"]}>
+            <Heading size={2} caps textColor="tertiary">
+              Flux
             </Heading>
-            <Interactive/>
+            <Image src={images.flux.replace("/", "")} margin="50px auto 0" />
           </Slide>
-          <Slide transition={["spin", "slide"]} bgColor="tertiary">
-            <Heading size={1} caps fit lineHeight={1.5} textColor="primary">
-              Made with love in Seattle by
+
+          <Slide>
+            <List textColor="tertiary">
+              <ListItem><strong>Actions</strong> – Helper methods that facilitate passing data to the Dispatcher</ListItem>
+              <ListItem><strong>Dispatcher</strong> – Receives actions and broadcasts payloads to registered callbacks</ListItem>
+              <ListItem><strong>Stores</strong> – Containers for application state & logic that have callbacks registered to the dispatcher</ListItem>
+              <ListItem><strong>Controller Views</strong> – React Components that grab the state from Stores and pass it down via props to child components.</ListItem>
+            </List>
+          </Slide>
+
+          <Slide bgColor="tertiary">
+            <Heading size={2} caps textColor="primary">
+              Flux dataflow
             </Heading>
-            <Link href="http://www.formidablelabs.com"><Image width="100%" src={images.logo}/></Link>
+            <Image src={images.flux_detail.replace("/", "")} />
           </Slide>
+
+          <Slide>
+            <Heading size={2} caps textColor="tertiary">
+              The good parts
+            </Heading>
+            <List textColor="tertiary">
+              <ListItem>Very stricts rules enforced by the Dispatcher</ListItem>
+              <ListItem>Dispatcher = real controller, all states changes have to go through them</ListItem>
+              <ListItem>Stores = Model, not db wrappers but just plain state</ListItem>
+              <ListItem>Unidirectional dataflow</ListItem>
+              <ListItem>Easier for unit testing</ListItem>
+              <ListItem>Great for scaling</ListItem>
+            </List>
+          </Slide>
+
+          <Slide bgColor="secondary">
+            <Heading size={2} caps textColor="primary">
+              The bad parts
+            </Heading>
+            <List textColor="tertiary">
+              <ListItem>Lot of implemenations</ListItem>
+              <ListItem>No middleware for actions (need for extra Actions Creator)</ListItem>
+              <ListItem>View dependency to the store</ListItem>
+              <ListItem>Quite complex maybe not needed for small apps</ListItem>
+            </List>
+          </Slide>
+
+          <Slide bgColor="secondary">
+            <BlockQuote>
+              <Quote>Managing this ever-changing state is hard.</Quote>
+              <Cite>Dan Abramov</Cite>
+            </BlockQuote>
+          </Slide>
+
+          <Slide>
+            <Heading size={1} caps textColor="tertiary">
+                Redux
+            </Heading>
+            <Image src={images.redux.replace("/", "")} width="900px" />
+            <Text>
+            Redux starting course videos : <Link href="https://egghead.io/series/getting-started-with-redux">https://egghead.io/series/getting-started-with-redux</Link>
+            </Text>
+          </Slide>
+
+          <Slide>
+            <Heading size={2} caps textColor="tertiary">
+              Redux features
+            </Heading>
+            <List textColor="tertiary">
+              <ListItem><strong>Single source of truth:</strong> only one store</ListItem>
+              <ListItem><strong>State is read-only:</strong> the only way to mutate the state is to emit an action</ListItem>
+              <ListItem><strong>Changes</strong> are made with <strong>pure functions</strong></ListItem>
+              <ListItem><strong>Redux does not have the concept of a Dispatcher</strong> pure functions instead of event emitters</ListItem>
+              <ListItem>Great helpers + tools</ListItem>
+              <ListItem> 
+              <Link href="http://redux.js.org/docs/introduction/Ecosystem.html">
+              http://redux.js.org/docs/introduction/Ecosystem.html
+              </Link></ListItem>
+            </List>
+          </Slide>
+          <Slide bgColor="secondary">
+            <Heading size={2} caps textColor="tertiary">
+              When you code with redux
+            </Heading>
+            <Appear><Image src={images.fountain.replace("/", "")} margin="50px auto 0" width="800px" /></Appear>
+          </Slide>
+
         </Deck>
       </Spectacle>
     );

@@ -1,0 +1,6 @@
+  BROWSER             SERVER                    DATABASE
+  |------|  request   |------------|  request   |-------|
+  |      | ---------> |            | ---------> |       |
+  | VIEW |  response  | CONTROLLER |  response  | MODEL |
+  |      | <--------- |            | <--------- |       |
+  |------|            |------------|            |-------|
